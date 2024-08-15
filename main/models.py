@@ -59,18 +59,16 @@ class Letter(models.Model):
 class MailingLog(models.Model):
     STATUS_SUCCESS = 'success'
     STATUS_ERROR = 'error'
-    STATUS_FAILED = 'fail'
 
     STATUSES = (
         (STATUS_SUCCESS, 'успешно'),
-        (STATUS_FAILED, 'не доставлено'),
         (STATUS_ERROR, 'ошибка'),
     )
     time = models.DateTimeField(auto_now_add=True, verbose_name='время последней попыткм рассылки')
     status = models.CharField(max_length=20, choices=STATUSES, verbose_name='статус последней попытки расслыки')
-    answer = models.CharField(max_length=100, verbose_name='ответ сервера', **NULLABLE)
+    answer = models.CharField(max_length=250, verbose_name='ответ сервера', **NULLABLE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиенты')
-    message = models.ForeignKey(Letter, on_delete=models.CASCADE, verbose_name='сообщение')
+    mail = models.ForeignKey(Mail, on_delete=models.CASCADE, verbose_name='рассылка', **NULLABLE)
 
     def __str__(self):
         return self.status

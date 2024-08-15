@@ -1,12 +1,15 @@
 from django.urls import path
-from .views import ClientCreateView, ClientDeleteView, ClientUpdateView, ClientsListView, MailsListView,\
-    MailCreateView, MailDeleteView, MailUpdateView, LetterCreateView, LetterDeleteView, LetterUpdateView,\
-    MailDetailView, ClientDetailView, LetterListView, LetterDetailView
+from django.views.decorators.cache import cache_page
+
+from .views import ClientCreateView, ClientDeleteView, ClientUpdateView, ClientsListView, MailsListView, \
+    MailCreateView, MailDeleteView, MailUpdateView, LetterCreateView, LetterDeleteView, LetterUpdateView, \
+    MailDetailView, ClientDetailView, LetterListView, LetterDetailView, MainPageListView
 
 app_name = 'main'
 
 urlpatterns = [
-    path('', MailsListView.as_view(), name='mails_list'),
+    path('', cache_page(60)(MainPageListView.as_view()), name='main_page'),
+    path('mails_list/', MailsListView.as_view(), name='mails_list'),
     path('clients_list/', ClientsListView.as_view(), name='clients_list'),
     path('mail_detail/<int:pk>', MailDetailView.as_view(), name='mail_detail'),
     path('mail_create/', MailCreateView.as_view(), name='mail_create'),

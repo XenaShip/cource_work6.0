@@ -2,8 +2,28 @@ from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.views import generic
 
+from blog.models import Blog
 from .form import MailForm, LetterForm, ClientForm
 from .models import Client, Mail, Letter
+
+
+class MainPageListView(generic.ListView):
+    model = Blog
+    template_name = 'main/main_page.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Главная страница'
+        context_data['number_of_mails'] = Mail.objects.count()
+        context_data['active_number_of_mails'] = Mail.objects.filter(mail_status='Запущена').count()
+        context_data['number_of_clients'] = Client.objects.distinct().count()
+        return context_data
+
+    def get_queryset(self):
+        if Blog.objects.count() >= 3:
+            return Blog.objects.all()[0:3]
+        else:
+            return Blog.objects.all()
 
 
 class MailsListView(generic.ListView):

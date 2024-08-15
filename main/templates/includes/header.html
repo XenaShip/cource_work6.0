@@ -3,6 +3,8 @@
     <nav class="ms-5">
         <a class="p-3 btn btn-outline-primary" href="{% url 'main:mails_list' %}">Список рассылок</a>
         <a class="p-3 btn btn-outline-primary" href="{% url 'main:clients_list' %}">Список клиентов</a>
+        <a class="p-3 btn btn-outline-primary" href="{% url 'blog:blog_list' %}">Блог</a>
+        <a class="p-3 btn btn-outline-primary" href="{% url 'main:main_page' %}">Главная страница</a>
         {% if user.is_authenticated %}
             <a class="p-2btn btn-outline-primary" href="{% url 'users:logout' %}">Выйти</a>
         {% else %}

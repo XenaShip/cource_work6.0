@@ -20,7 +20,7 @@ class MailAdmin(admin.ModelAdmin):
 
 
 class MailingLogAdmin(admin.ModelAdmin):
-    list_display = ('message', 'time', 'status')
+    list_display = ('mail', 'time', 'status')
     list_filter = ('status',)
     search_fields = ('status',)
 
