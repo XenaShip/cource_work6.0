@@ -34,6 +34,8 @@ class Mail(models.Model):
     clients = models.ManyToManyField(Client, blank=True, related_name='clients', verbose_name='клиенты')
     message = models.OneToOneField('Letter', on_delete=models.SET_NULL, **NULLABLE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
+    next_time_mailing = models.DateTimeField(verbose_name='следующее время расслыки', **NULLABLE)
+
 
     def __str__(self):
         return self.name
