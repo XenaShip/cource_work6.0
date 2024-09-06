@@ -36,7 +36,6 @@ class Mail(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
     next_time_mailing = models.DateTimeField(verbose_name='следующее время расслыки', **NULLABLE)
 
-
     def __str__(self):
         return self.name
 
